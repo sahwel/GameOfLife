@@ -10,33 +10,12 @@
 
 <body>
 
-    <table class="grids">
-        <tr class="row">
-            <td class="grid">
-            </td>
-            <td class="grid">
-            </td>
-            <td class="grid">
-            </td>
-        </tr>
-        <tr class="row">
-            <td class="grid">
-            </td>
-            <td class="grid">
-            </td>
-            <td class="grid">
+    <table id="grids">
+        <tr th:each="row: ${grids}">
+            <td th:each="value: ${row}">
             </td>
         </tr>
     </table>
-
-    <!--<table class="grids" id="grids">
-        <tr class="row" th:each="row: ${grids}">
-            <td class="grid" th:each="value: ${row}">
-            </td>
-        </tr>
-
-    </table>
--->
     <div class="nav">
         <ul>
             <li><button>Select Example</button></li>
@@ -44,6 +23,7 @@
             <li><button>Play</button></li>
             <li><button>Next</button></li>
             <li><button>Reset</button></li>
+            <li th:text="*{ 'Generation ' + generation}"></li>
         </ul>
     </div>
 

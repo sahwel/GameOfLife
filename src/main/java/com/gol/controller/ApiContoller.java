@@ -17,7 +17,7 @@ public class ApiContoller {
 
 	@RequestMapping("/grids")
 	public int[][] grids() {
-		return generationService.getFirstGen("src/main/resources/static/files/acorn.lif");
+		return generationService.getFirstGen("src/main/resources/static/files/ak47.lif");
 	}
 
 }

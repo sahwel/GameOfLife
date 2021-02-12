@@ -12,23 +12,34 @@ body {
 
 .grids {
     border-spacing: 0;
+    border-collapse: collapse;
     height: 90%;
     width: 100%;
 }
 
-.grids tr {
-    position: absolute;
-    margin: 0;
-    padding: 0;
-    height: 2.7px;
+.grids td {
+    display: table-cell;
+    max-width: 2.7px;
+    max-height: 2.7px;
+    background-color: gray;
 }
 
-.grids td {
-    margin: 0;
+table {
+    border-collapse: collapse;
     padding: 0;
-    width: 2.7px;
+}
+
+table tr {
     height: 2.7px;
+    ;
+}
+
+table td {
+    width: 2.7px;
     background-color: gray;
+    display: table-cell;
+    vertical-align: top;
+    height: 2.7px;
 }
 
 .nav {

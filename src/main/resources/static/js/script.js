@@ -13,19 +13,17 @@ function getGrids() {
             let array = data;
             const table = document.getElementById('grids');
             for (var i = 0; i < array.length; i++) {
-
-                const row = document.createElement('tr');
-                table.appendChild(row);
+                let tr = document.createElement('tr');
                 for (var j = 0; j < array.length; j++) {
                     console.log("asd");
-                    const col = document.createElement('td');
-                    if (array[i][j]) {
-                        col.style.backgroundColor = "orange";
+                    let td = document.createElement('td');
+                    if (array[i][j] == 1) {
+                        td.style.backgroundColor = "orange";
                     }
-                    row.appendChild.col;
-
+                    tr.appendChild(td);
 
                 }
+                table.appendChild(tr);
             }
         })
 }

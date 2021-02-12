@@ -154,7 +154,7 @@ public class GenerationService {
 	    }
 
 	    public static int[][] generateGrid() {
-	        int[][] array = new int[10][10];
+	        int[][] array = new int[300][300];
 	        for (int i = 0; i < array.length; i++) {
 	            for (int j = 0; j < array.length; j++) {
 	                array[i][j] = 0;

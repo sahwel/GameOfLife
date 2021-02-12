@@ -18,6 +18,7 @@ public class HomeController {
 	}
 	@RequestMapping("/")
 	public String home(Model model) {
+		model.addAttribute("generation", generationService.getWhichGen());
 		//model.addAttribute("grids", generationService.getFirstGen("src/main/resources/static/files/acorn.lif"));
 		//System.out.print(generationService.getFirstGen("src/main/resources/static/files/acorn.lif").length);
 		return "index";
