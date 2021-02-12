@@ -101,17 +101,19 @@ function play() {
     change();
 }
 
+var playBtn = document.getElementById('play');
+
 function change() {
-    let playBtn = document.getElementById('play').innerHTML;
-    if (playBtn == "Play") {
-        playBtn = "Stop";
+    if (playBtn.textContent == "Play") {
+        playBtn.textContent = "Stop";
     } else {
-        playBtn = "Play";
+        playBtn.textContent = "Play";
     }
 }
 
-function start() {
-    animate = setTimeout(getNextGen(), 20);
+ function start() {
+	getNextGen()
+    animate =  setTimeout(start, 50);
 }
 
 function stop() {
