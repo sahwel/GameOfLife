@@ -1,0 +1,54 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/style/style.css}" href="../static/style/style.css">
+</head>
+
+<body>
+
+    <table class="grids">
+        <tr class="row">
+            <td class="grid">
+            </td>
+            <td class="grid">
+            </td>
+            <td class="grid">
+            </td>
+        </tr>
+        <tr class="row">
+            <td class="grid">
+            </td>
+            <td class="grid">
+            </td>
+            <td class="grid">
+            </td>
+        </tr>
+    </table>
+
+    <!--<table class="grids" id="grids">
+        <tr class="row" th:each="row: ${grids}">
+            <td class="grid" th:each="value: ${row}">
+            </td>
+        </tr>
+
+    </table>
+-->
+    <div class="nav">
+        <ul>
+            <li><button>Select Example</button></li>
+            <li><button>Before</button></li>
+            <li><button>Play</button></li>
+            <li><button>Next</button></li>
+            <li><button>Reset</button></li>
+        </ul>
+    </div>
+
+
+    <script th:src="@{/js/script.js}" src="../static/js/script.js"></script>
+</body>
+
+</html>
