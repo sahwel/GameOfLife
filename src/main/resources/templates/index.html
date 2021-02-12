@@ -19,11 +19,11 @@
     <div class="nav">
         <ul>
             <li><button>Select Example</button></li>
-            <li><button>Before</button></li>
-            <li><button>Play</button></li>
-            <li><button>Next</button></li>
+            <li><button onclick="moveBack()">Before</button></li>
+            <li><button id="play" onclick="play()">Play</button></li>
+            <li><button onclick="getNextGen()">Next</button></li>
             <li><button>Reset</button></li>
-            <li th:text="*{ 'Generation ' + generation}"></li>
+            <li>Generation: <span id="generation"></span></li>
         </ul>
     </div>
 
