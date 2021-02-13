@@ -3,12 +3,9 @@ package com.gol.service;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.stereotype.Service;
@@ -164,6 +161,7 @@ public class GenerationService {
 				for (String line = raf.readLine(); line != null; line = raf.readLine()) {
 					examples.add(line);
 				}
+				raf.close();
 			} catch (IOException ex) {
 				// hiba kezelés
 			}

@@ -48,7 +48,7 @@ table td {
 }
 
 .selectExample {
-    width: 70%;
+    width: 60%;
     height: 55%;
     border: 1px solid white;
     padding: 20px;
@@ -78,6 +78,7 @@ table td {
 }
 
 .nav {
+    border-left: 1px solid black;
     float: left;
     position: relative;
     height: 100vh;

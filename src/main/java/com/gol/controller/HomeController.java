@@ -1,28 +1,15 @@
 package com.gol.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.gol.service.GenerationService;
 
 
 @Controller
 public class HomeController {
-	private GenerationService generationService;
 	
-	@Autowired
-	public void setGenerationService(GenerationService generationService) {
-		this.generationService = generationService;
-	}
+	
 	@RequestMapping("/")
-	public String home(Model model) {
-		System.out.println(generationService.getResources());
-		//model.addAttribute("grids", generationService.getFirstGen("src/main/resources/static/files/acorn.lif"));
-		//System.out.print(generationService.getFirstGen("src/main/resources/static/files/acorn.lif").length);
+	public String home() {
 		return "index";
 	}
 }
