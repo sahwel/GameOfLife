@@ -24,21 +24,12 @@ public class GenerationService {
 	private int[][] beforeGen = new int[gridSize][gridSize];
 	private int[][] currentGen = new int[gridSize][gridSize];
 
-	/*
-	 * public static void main(String[] args) { String fileName = "acorn.lif";
-	 * List<String> example = getFile(fileName); int grid[][] =
-	 * getFirstGen(fileName); String rules = getRules(example); List<Integer>
-	 * cellsToLive = getCellToLive(rules); List<Integer> cellsToRise =
-	 * getCellToRise(rules); System.out.println(""); System.out.println(""); int[][]
-	 * oldGen = grid; grid = moveToNextGen(grid, cellsToLive, cellsToRise); }
-	 */
+	
 	public List<String> getResources() {
 		List<String> filesName = new ArrayList<>();
 		try {
 			Resource[] resources = resolver.getResources("static/files/*.lif");
 			for (int i = 0; i < resources.length; i++) {
-				//String[] name = resources[i].getFilename().split(".");
-				//System.out.println(resources[i].getFilename());
 				filesName.add(resources[i].getFilename());
 			}
 		} catch (IOException e) {
@@ -161,7 +152,6 @@ public class GenerationService {
 			grid[num1][num2] = 0;
 		}
 
-		// writeOut(grid);
 		return grid;
 	}
 
@@ -283,19 +273,9 @@ public class GenerationService {
 		if (version.equals(v6)) {
 			grid = getFirstGenSix(grid, example);
 		}
-		// writeOut(grid);
 		return grid;
 	}
 
-	public static void writeOut(int array[][]) {
-		for (int i = 0; i < array.length; i++) {
-			for (int j = 0; j < array.length; j++) {
-				System.out.print(array[i][j]);
-				if (j == array.length - 1) {
-					System.out.println("");
-				}
-			}
-		}
-	}
+	
 
 }
