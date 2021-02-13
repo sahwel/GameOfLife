@@ -3,7 +3,10 @@ package com.gol.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gol.service.GenerationService;
@@ -12,21 +15,35 @@ import com.gol.service.GenerationService;
 public class ApiContoller {
 	private GenerationService generationService;
 
+	private String fileName = "src/main/resources/static/files/acorn.lif";
+	
 	@Autowired
 	public void setGenerationService(GenerationService generationService) {
 		this.generationService = generationService;
 	}
 
+	@RequestMapping("/getFilesName")
+	public List<String> getFilesName() {
+		return generationService.getResources();
+	}
+	
+	@RequestMapping(path = "/newExample/{name}", method = RequestMethod.POST)
+	public int[][] activation(@PathVariable("name") String name) {
+		fileName = "src/main/resources/static/files/" + name + ".lif";
+		int[][] currentGen = generationService.getFirstGen(fileName);
+		generationService.setCurrentGen(currentGen);
+		return currentGen;
+	}
+	
 	@RequestMapping("/grids")
 	public int[][] grids() {
-		int[][] currentGen = generationService.getFirstGen("src/main/resources/static/files/ak47.lif");
+		int[][] currentGen = generationService.getFirstGen(fileName);
 		generationService.setCurrentGen(currentGen);
 		return currentGen;
 	}
 	
 	@RequestMapping("/moveToNext")
 	public int[][] moveToNextGen() {
-		String fileName = "src/main/resources/static/files/ak47.lif";
 		List<String> example = generationService.getFile(fileName);
 		String rules = generationService.getRules(example);
 		List<Integer> cellsToLive = generationService.getCellToLive(rules);

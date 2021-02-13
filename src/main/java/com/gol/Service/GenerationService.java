@@ -3,56 +3,99 @@ package com.gol.service;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.stereotype.Service;
 
 @Service
 public class GenerationService {
-	private static int whichGen = 0;
-	private static final int girdSize = 300;
+	private int whichGen = 0;
+	private int gridSize = 350;
 
-	private static int[][] beforeGen = new int[girdSize][girdSize];
-	private static int[][] currentGen = new int[girdSize][girdSize];
+	ClassLoader loader = GenerationService.class.getClassLoader();
+	ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver(loader);
+
+	private int[][] beforeGen = new int[gridSize][gridSize];
+	private int[][] currentGen = new int[gridSize][gridSize];
 
 	/*
-	 * public static void main(String[] args) { 
-	 * String fileName = "acorn.lif";
-	 * List<String> example = getFile(fileName);
-	 *  int grid[][] = getFirstGen(fileName); 
-	 * String rules = getRules(example); 
-	 * List<Integer> cellsToLive = getCellToLive(rules);
-	 *  List<Integer> cellsToRise = getCellToRise(rules); 
-	 *  System.out.println(""); 
-	 *  System.out.println("");
-	 *   int[][] oldGen = grid; grid = moveToNextGen(grid, cellsToLive, cellsToRise); }
+	 * public static void main(String[] args) { String fileName = "acorn.lif";
+	 * List<String> example = getFile(fileName); int grid[][] =
+	 * getFirstGen(fileName); String rules = getRules(example); List<Integer>
+	 * cellsToLive = getCellToLive(rules); List<Integer> cellsToRise =
+	 * getCellToRise(rules); System.out.println(""); System.out.println(""); int[][]
+	 * oldGen = grid; grid = moveToNextGen(grid, cellsToLive, cellsToRise); }
 	 */
-
-	public static int[][] getBeforeGen() {
-		return beforeGen;
+	public List<String> getResources() {
+		List<String> filesName = new ArrayList<>();
+		try {
+			Resource[] resources = resolver.getResources("static/files/*.lif");
+			for (int i = 0; i < resources.length; i++) {
+				//String[] name = resources[i].getFilename().split(".");
+				//System.out.println(resources[i].getFilename());
+				filesName.add(resources[i].getFilename());
+			}
+		} catch (IOException e) {
+			System.out.println("Cannot find path");
+		}
+		return filesName;
 	}
 
-	public static void setBeforeGen(int[][] beforeGen) {
-		GenerationService.beforeGen = beforeGen;
+	public int getGridSize() {
+		return gridSize;
 	}
 
-	public static int[][] getCurrentGen() {
-		return currentGen;
-	}
-
-	public static void setCurrentGen(int[][] currentGen) {
-		GenerationService.currentGen = currentGen;
-	}
-
-	public static int getWhichGen() {
+	public int getWhichGen() {
 		return whichGen;
 	}
 
-	public static void setWhichGen(int whichGen) {
-		GenerationService.whichGen = whichGen;
+	public void setWhichGen(int whichGen) {
+		this.whichGen = whichGen;
 	}
 
-	public static int[][] moveToNextGen(int grid[][], List<Integer> cellsToLive, List<Integer> cellsToRise) {
+	public ClassLoader getLoader() {
+		return loader;
+	}
+
+	public void setLoader(ClassLoader loader) {
+		this.loader = loader;
+	}
+
+	public ResourcePatternResolver getResolver() {
+		return resolver;
+	}
+
+	public void setResolver(ResourcePatternResolver resolver) {
+		this.resolver = resolver;
+	}
+
+	public int[][] getBeforeGen() {
+		return beforeGen;
+	}
+
+	public void setBeforeGen(int[][] beforeGen) {
+		this.beforeGen = beforeGen;
+	}
+
+	public int[][] getCurrentGen() {
+		return currentGen;
+	}
+
+	public void setCurrentGen(int[][] currentGen) {
+		this.currentGen = currentGen;
+	}
+
+	public void setGridSize(int gridSize) {
+		this.gridSize = gridSize;
+	}
+
+	public int[][] moveToNextGen(int grid[][], List<Integer> cellsToLive, List<Integer> cellsToRise) {
 		List<String> cellsDie = new ArrayList<String>();
 		List<String> cellsRise = new ArrayList<String>();
 		for (int i = 0; i < grid.length; i++) {
@@ -119,11 +162,10 @@ public class GenerationService {
 		}
 
 		// writeOut(grid);
-		whichGen++;
 		return grid;
 	}
 
-	public static List<String> getFile(String fileName) {
+	public List<String> getFile(String fileName) {
 		List<String> examples = new ArrayList<>();
 		String ext = fileName.substring(fileName.length() - 4);
 		if (ext.equals((".lif"))) {
@@ -139,7 +181,7 @@ public class GenerationService {
 		return examples;
 	}
 
-	public static List<Integer> getCellToRise(String rules) {
+	public List<Integer> getCellToRise(String rules) {
 		List<Integer> cellsToLive = new ArrayList<>();
 		String cells = rules.substring(rules.indexOf("/") + 1);
 		for (int i = 0; i < cells.length(); i++) {
@@ -149,7 +191,7 @@ public class GenerationService {
 		return cellsToLive;
 	}
 
-	public static List<Integer> getCellToLive(String rules) {
+	public List<Integer> getCellToLive(String rules) {
 		List<Integer> cellsToLive = new ArrayList<>();
 		String cells = rules.substring(0, rules.indexOf("/"));
 		for (int i = 0; i < cells.length(); i++) {
@@ -159,7 +201,7 @@ public class GenerationService {
 		return cellsToLive;
 	}
 
-	public static String getRules(List<String> example) {
+	public String getRules(List<String> example) {
 		String rules = "23/3";
 		for (int i = 0; i < example.size(); i++) {
 			if (example.get(i).startsWith("#R")) {
@@ -170,8 +212,8 @@ public class GenerationService {
 		return rules;
 	}
 
-	public static int[][] generateGrid() {
-		int[][] array = new int[girdSize][girdSize];
+	public int[][] generateGrid() {
+		int[][] array = new int[gridSize][gridSize];
 		for (int i = 0; i < array.length; i++) {
 			for (int j = 0; j < array.length; j++) {
 				array[i][j] = 0;
@@ -229,7 +271,7 @@ public class GenerationService {
 		return grid;
 	}
 
-	public static int[][] getFirstGen(String fileName) {
+	public int[][] getFirstGen(String fileName) {
 		int[][] grid = generateGrid();
 		List<String> example = getFile(fileName);
 		String version = getVersion(example);

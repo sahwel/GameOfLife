@@ -9,22 +9,27 @@
 </head>
 
 <body>
-
-    <table id="grids">
-        <tr th:each="row: ${grids}">
-            <td th:each="value: ${row}">
-            </td>
-        </tr>
-    </table>
+    <div class="gridCont">
+        <table id="grids">
+            <tr th:each="row: ${grids}">
+                <td th:each="value: ${row}">
+                </td>
+            </tr>
+        </table>
+    </div>
     <div class="nav">
-        <ul>
-            <li><button>Select Example</button></li>
-            <li><button onclick="moveBack()">Before</button></li>
-            <li><button id="play" onclick="play()">Play</button></li>
-            <li><button onclick="getNextGen()">Next</button></li>
-            <li><button>Reset</button></li>
-            <li>Generation: <span id="generation"></span></li>
-        </ul>
+        <div class="btns">
+            <ul>
+                <li><button onclick="moveBack()">Before</button></li>
+                <li><button id="play" onclick="play()">Play</button></li>
+                <li><button onclick="getNextGen()">Next</button></li>
+                <li><button onclick="getGrids()">Reset</button></li>
+                <li>Generation: <span id="generation"></span></li>
+            </ul>
+        </div>
+        <div class="selectExample" id="examples">
+            <h1>Examples</h1>
+        </div>
     </div>
 
 
