@@ -13,7 +13,7 @@ import com.gol.service.GenerationService;
 @RestController
 public class ApiContoller {
 	private GenerationService generationService;
-	private String fileName = "src/main/resources/static/files/acorn.lif";
+	private String fileName = "src/main/resources/static/files/relay.lif";
 
 	@Autowired
 	public void setGenerationService(GenerationService generationService) {

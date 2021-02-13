@@ -12,27 +12,16 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class GenerationService {
-	private int gridSize = 500;
+	private int gridSize = 500; 
 
 	ClassLoader loader = GenerationService.class.getClassLoader();
 	ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver(loader);
 
-	private int[][] beforeGen = new int[gridSize][gridSize];
-	private int[][] currentGen = new int[gridSize][gridSize];
+	private int[][] beforeGen = new int[gridSize][gridSize]; 
+	private int[][] currentGen = new int[gridSize][gridSize]; 
 
-	public List<String> getResources() {
-		List<String> filesName = new ArrayList<>();
-		try {
-			Resource[] resources = resolver.getResources("static/files/*.lif");
-			for (int i = 0; i < resources.length; i++) {
-				filesName.add(resources[i].getFilename());
-			}
-		} catch (IOException e) {
-			System.out.println("Cannot find path");
-		}
-		return filesName;
-	}
-
+	
+	// Getterek Setterek
 	public int getGridSize() {
 		return gridSize;
 	}
@@ -72,8 +61,26 @@ public class GenerationService {
 	public void setGridSize(int gridSize) {
 		this.gridSize = gridSize;
 	}
+	
+	//Getterek Setterek vége
+	
+	public List<String> getResources() { // a file-ok neveinek kinyerése
+		List<String> filesName = new ArrayList<>();
+		try {
+			Resource[] resources = resolver.getResources("static/files/*.lif");
+			for (int i = 0; i < resources.length; i++) {
+				filesName.add(resources[i].getFilename());
+			}
+		} catch (IOException e) {
+			System.out.println("Cannot find path");
+		}
+		return filesName;
+	}
+ 
+	
 
-	public int[][] getBefore(){
+
+	public int[][] getBefore(){ 
 		int[][] before = new int[gridSize][gridSize];
 		
 		for (int i = 0; i < getCurrentGen().length; i++) {
@@ -99,7 +106,7 @@ public class GenerationService {
 					for (int l = -1; l < 2; l++) {
 						try {
 							if (!(k == 0 && l == 0)) {
-								if (grid[i + k][j + l] == 1) {
+								if (grid[i + k][j + l] == 1) { 
 									cellAround++;
 								}
 							}
@@ -107,7 +114,9 @@ public class GenerationService {
 						}
 					}
 				}
-				boolean isCellWillLive = false;
+				boolean isCellWillLive = false; 
+				
+				
 				if (grid[i][j] == 1) {
 
 					for (int k = 0; k < cellsToRise.size(); k++) {
@@ -142,20 +151,20 @@ public class GenerationService {
 		}
 		for (int j = 0; j < cellsRise.size(); j++) {
 			String array[] = cellsRise.get(j).split(" ");
-			int num1 = Integer.parseInt(array[0]);
-			int num2 = Integer.parseInt(array[1]);
+			int y = Integer.parseInt(array[0]);
+			int x = Integer.parseInt(array[1]);
 			try {
-				grid[num1][num2] = 1;
+				grid[y][x] = 1;
 			} catch (Exception e) {
 			}
 
 		}
 		for (int j = 0; j < cellsDie.size(); j++) {
 			String array[] = cellsDie.get(j).split(" ");
-			int num1 = Integer.parseInt(array[0]);
-			int num2 = Integer.parseInt(array[1]);
+			int y = Integer.parseInt(array[0]);
+			int x = Integer.parseInt(array[1]);
 			try {
-				grid[num1][num2] = 0;
+				grid[y][x] = 0;
 			} catch (Exception e) {
 			}
 
