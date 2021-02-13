@@ -13,9 +13,8 @@ import com.gol.service.GenerationService;
 @RestController
 public class ApiContoller {
 	private GenerationService generationService;
-
 	private String fileName = "src/main/resources/static/files/acorn.lif";
-	
+
 	@Autowired
 	public void setGenerationService(GenerationService generationService) {
 		this.generationService = generationService;
@@ -25,7 +24,7 @@ public class ApiContoller {
 	public List<String> getFilesName() {
 		return generationService.getResources();
 	}
-	
+
 	@RequestMapping(path = "/newExample/{name}", method = RequestMethod.POST)
 	public int[][] activation(@PathVariable("name") String name) {
 		fileName = "src/main/resources/static/files/" + name + ".lif";
@@ -33,32 +32,35 @@ public class ApiContoller {
 		generationService.setCurrentGen(currentGen);
 		return currentGen;
 	}
-	
+
 	@RequestMapping("/grids")
 	public int[][] grids() {
 		int[][] currentGen = generationService.getFirstGen(fileName);
 		generationService.setCurrentGen(currentGen);
 		return currentGen;
 	}
-	
+
 	@RequestMapping("/moveToNext")
 	public int[][] moveToNextGen() {
+		int[][] before = generationService.getBefore();
 		List<String> example = generationService.getFile(fileName);
 		String rules = generationService.getRules(example);
 		List<Integer> cellsToLive = generationService.getCellToLive(rules);
-		List<Integer> cellsToRise = generationService.getCellToRise(rules); 
+		List<Integer> cellsToRise = generationService.getCellToRise(rules);
+
 		
-		generationService.setBeforeGen(generationService.getCurrentGen());
-		int[][] currentGen = generationService.moveToNextGen(generationService.getCurrentGen(), cellsToLive, cellsToRise);
+		int[][] currentGen = generationService.moveToNextGen(generationService.getCurrentGen(), cellsToLive,
+				cellsToRise);
 		generationService.setCurrentGen(currentGen);
+
 		
+		generationService.setBeforeGen(before);
 		return currentGen;
 	}
-	
+
 	@RequestMapping("/moveBack")
 	public int[][] moveBack() {
 		return generationService.getBeforeGen();
 	}
-
 
 }

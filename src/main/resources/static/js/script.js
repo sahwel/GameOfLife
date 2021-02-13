@@ -84,31 +84,34 @@ function getNextGen() {
 }
 
 function moveBack() {
-    fetch('http://localhost:8080/moveBack', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            let array = data;
-            let table = document.getElementById('grids');
-            table.innerHTML = "";
-            for (var i = 0; i < array.length; i++) {
-                let tr = document.createElement('tr');
-                for (var j = 0; j < array.length; j++) {
-                    let td = document.createElement('td');
-                    if (array[i][j] == 1) {
-                        td.style.backgroundColor = "orange";
-                    }
-                    tr.appendChild(td);
+    let gen = parseInt(document.getElementById("generation").innerHTML);
+    if (gen > 0) {
+        fetch('http://localhost:8080/moveBack', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
                 }
-                table.appendChild(tr);
-            }
-            let gen = parseInt(document.getElementById("generation").innerHTML);
-            document.getElementById("generation").innerHTML = gen - 1;
-        })
+            })
+            .then(response => response.json())
+            .then(data => {
+                let array = data;
+                let table = document.getElementById('grids');
+                table.innerHTML = "";
+                for (var i = 0; i < array.length; i++) {
+                    let tr = document.createElement('tr');
+                    for (var j = 0; j < array.length; j++) {
+                        let td = document.createElement('td');
+                        if (array[i][j] == 1) {
+                            td.style.backgroundColor = "orange";
+                        }
+                        tr.appendChild(td);
+                    }
+                    table.appendChild(tr);
+                }
+                let gen = parseInt(document.getElementById("generation").innerHTML);
+                document.getElementById("generation").innerHTML = gen - 1;
+            })
+    }
 }
 
 function getFilesName() {
@@ -121,7 +124,6 @@ function getFilesName() {
         .then(response => response.json())
         .then(data => {
             let array = data;
-            console.log(data);
             let examples = document.getElementById('examples');
             for (var i = 0; i < array.length; i++) {
                 let line = array[i].split('.');

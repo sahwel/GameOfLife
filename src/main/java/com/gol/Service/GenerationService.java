@@ -12,8 +12,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class GenerationService {
-	private int whichGen = 0;
-	private int gridSize = 500;
+	private int gridSize = 10;
 
 	ClassLoader loader = GenerationService.class.getClassLoader();
 	ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver(loader);
@@ -21,7 +20,6 @@ public class GenerationService {
 	private int[][] beforeGen = new int[gridSize][gridSize];
 	private int[][] currentGen = new int[gridSize][gridSize];
 
-	
 	public List<String> getResources() {
 		List<String> filesName = new ArrayList<>();
 		try {
@@ -37,14 +35,6 @@ public class GenerationService {
 
 	public int getGridSize() {
 		return gridSize;
-	}
-
-	public int getWhichGen() {
-		return whichGen;
-	}
-
-	public void setWhichGen(int whichGen) {
-		this.whichGen = whichGen;
 	}
 
 	public ClassLoader getLoader() {
@@ -83,7 +73,22 @@ public class GenerationService {
 		this.gridSize = gridSize;
 	}
 
+	public int[][] getBefore(){
+		int[][] before = new int[gridSize][gridSize];
+		
+		for (int i = 0; i < getCurrentGen().length; i++) {
+			for (int j = 0; j < getCurrentGen().length; j++) {
+				before[i][j] = getCurrentGen()[i][j];
+			}
+		}
+		
+		return before;
+	}
+	
 	public int[][] moveToNextGen(int grid[][], List<Integer> cellsToLive, List<Integer> cellsToRise) {
+		
+		setBeforeGen(grid); 
+		
 		List<String> cellsDie = new ArrayList<String>();
 		List<String> cellsRise = new ArrayList<String>();
 		for (int i = 0; i < grid.length; i++) {
@@ -139,16 +144,23 @@ public class GenerationService {
 			String array[] = cellsRise.get(j).split(" ");
 			int num1 = Integer.parseInt(array[0]);
 			int num2 = Integer.parseInt(array[1]);
-			grid[num1][num2] = 1;
+			try {
+				grid[num1][num2] = 1;
+			} catch (Exception e) {
+			}
 
 		}
 		for (int j = 0; j < cellsDie.size(); j++) {
 			String array[] = cellsDie.get(j).split(" ");
 			int num1 = Integer.parseInt(array[0]);
 			int num2 = Integer.parseInt(array[1]);
-			grid[num1][num2] = 0;
-		}
+			try {
+				grid[num1][num2] = 0;
+			} catch (Exception e) {
+			}
 
+		}
+		
 		return grid;
 	}
 
@@ -273,7 +285,5 @@ public class GenerationService {
 		}
 		return grid;
 	}
-
-	
 
 }
