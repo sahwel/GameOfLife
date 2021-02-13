@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class GenerationService {
-	private int gridSize = 10;
+	private int gridSize = 500;
 
 	ClassLoader loader = GenerationService.class.getClassLoader();
 	ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver(loader);
