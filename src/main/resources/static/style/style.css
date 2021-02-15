@@ -13,7 +13,6 @@ body {
 .gridCont {
     float: left;
     width: 60%;
-    background-color: beige;
 }
 
 .grids {
@@ -30,10 +29,6 @@ body {
     background-color: gray;
 }
 
-table {
-    border-collapse: collapse;
-    padding: 0;
-}
 
 table tr {
     height: 2.7px;
