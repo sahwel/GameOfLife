@@ -30,11 +30,11 @@ body {
 }
 
 
-table tr {
+.grids tr {
     height: 2.7px;
 }
 
-table td {
+.grids td {
     width: 2.7px;
     background-color: gray;
     display: table-cell;
