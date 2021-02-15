@@ -119,8 +119,8 @@ public class GenerationService {
 				
 				if (grid[i][j] == 1) {
 
-					for (int k = 0; k < cellsToRise.size(); k++) {
-						if (cellAround == cellsToRise.get(k)) {
+					for (int k = 0; k < cellsToLive.size(); k++) {
+						if (cellAround == cellsToLive.get(k)) {
 							isCellWillLive = true;
 							break;
 						}
