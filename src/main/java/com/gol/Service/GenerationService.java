@@ -101,7 +101,7 @@ public class GenerationService {
 		for (int i = 0; i < grid.length; i++) {
 			for (int j = 0; j < grid.length; j++) {
 
-				int cellAround = 0;
+				int cellAround = 0; // az adott sejt körüli elő sejtek számát ebben a változóban fogjuk tárolni
 				for (int k = -1; k < 2; k++) {
 					for (int l = -1; l < 2; l++) {
 						try {
