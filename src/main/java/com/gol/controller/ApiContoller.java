@@ -60,7 +60,9 @@ public class ApiContoller {
 
 	@RequestMapping("/moveBack")
 	public int[][] moveBack() {
-		return generationService.getBeforeGen();
+		int[][] grids = generationService.getBeforeGen();
+		generationService.setCurrentGen(grids);
+		return grids;
 	}
 
 }
